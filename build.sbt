@@ -1,3 +1,5 @@
+import ReleaseTransformations._
+
 inThisBuild(
   Seq(
     scalaVersion := "2.12.17",
@@ -28,3 +30,15 @@ lazy val root = (project in file("."))
     crossScalaVersions := Nil
   )
   .aggregate(jibCommon, sbtJib)
+
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  setNextVersion,
+  commitNextVersion,
+)
