@@ -1,5 +1,7 @@
 import ReleaseTransformations._
 
+ThisBuild / version := "0.0.1-SNAPSHOT"
+
 inThisBuild(
   Seq(
     scalaVersion := "2.12.17",
