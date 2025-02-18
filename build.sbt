@@ -1,31 +1,17 @@
-import xerial.sbt.Sonatype._
-
-sonatypeProfileName    := "de.gccc"
-sonatypeProjectHosting := Some(GitHubHosting("sbt-jib", "sbt-jib", "c.schmitt@briefdomain.de"))
-
 inThisBuild(
   Seq(
     scalaVersion := "2.12.17",
-    organization := "de.gccc.sbt",
-    homepage     := Some(url("https://github.com/schmitch")),
-    licenses     := Seq("APL2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
-    developers := List(
-      Developer(
-        id = "schmitch",
-        name = "Christian Schmitt",
-        email = "c.schmitt@briefdomain.de",
-        url = url("https://github.com/schmitch")
-      )
-    )
+    organization := "com.github.ryota0624",
+    licenses := Seq("APL2" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
   )
 )
 
 lazy val jibCommon = (project in file("jib-common")).settings(
-  name               := "jib-common",
+  name := "jib-common",
   crossScalaVersions := List(scalaVersion.value, "2.11.12", "2.13.10", "3.3.0"),
   libraryDependencies ++= List(
-    "com.google.cloud.tools"  % "jib-core"                % "0.27.0",
-    "org.scala-lang.modules" %% "scala-collection-compat" % "2.9.0"
+    "com.google.cloud.tools" % "jib-core" % "0.27.2",
+    "org.scala-lang.modules" %% "scala-collection-compat" % "2.13.0"
   )
 )
 
@@ -38,7 +24,7 @@ lazy val sbtJib = (project in file("sbt-jib"))
 
 lazy val root = (project in file("."))
   .settings(
-    publish / skip     := true,
+    publish / skip := true,
     crossScalaVersions := Nil
   )
   .aggregate(jibCommon, sbtJib)

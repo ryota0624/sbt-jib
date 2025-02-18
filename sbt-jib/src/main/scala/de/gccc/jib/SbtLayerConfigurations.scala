@@ -42,7 +42,8 @@ private[jib] case class SbtLayerConfigurations(
     }
 
     val extraLayer =
-      if (extraMappings.nonEmpty) SbtJibHelper.mappingsConverter("extra", extraMappings.filter(_._1.isFile)) :: Nil
+      if (extraMappings.nonEmpty)
+        SbtJibHelper.mappingsConverterWithPermission("extra", extraMappings.filter(_._1.isFile)) :: Nil
       else Nil
 
     val allClasses = classes

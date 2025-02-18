@@ -24,6 +24,21 @@ private[jib] object SbtJibHelper {
     layerBuilder.build()
   }
 
+  def mappingsConverterWithPermission(name: String, mappings: Seq[(File, String)]): FileEntriesLayer = {
+    val layerBuilder = FileEntriesLayer.builder()
+
+    mappings
+      .filter(_._1.isFile) // fixme resolve all directory files
+      .map { case (file, fullPathOnImage) => (file.toPath, fullPathOnImage) }
+      .toList
+      .sortBy(_._2)
+      .foreach { case (sourceFile, pathOnImage) =>
+        layerBuilder.addEntry(sourceFile, AbsoluteUnixPath.get(pathOnImage), FilePermissions.fromOctalString("755"))
+      }
+
+    layerBuilder.build()
+  }
+
   def javaBuild(
       targetDirectory: File,
       configuration: SbtConfiguration,
