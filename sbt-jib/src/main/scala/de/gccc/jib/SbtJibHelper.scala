@@ -1,7 +1,7 @@
 package de.gccc.jib
 
 import com.google.cloud.tools.jib.api.buildplan._
-import com.google.cloud.tools.jib.api.{Containerizer, JavaContainerBuilder}
+import com.google.cloud.tools.jib.api.{ Containerizer, JavaContainerBuilder }
 import de.gccc.jib.JibPlugin.autoImport.JibImageFormat
 import de.gccc.jib.common.JibCommon
 
@@ -40,24 +40,24 @@ private[jib] object SbtJibHelper {
   }
 
   def javaBuild(
-                 targetDirectory: File,
-                 configuration: SbtConfiguration,
-                 jibBaseImageCredentialHelper: Option[String],
-                 jvmFlags: List[String],
-                 tcpPorts: List[Int],
-                 udpPorts: List[Int],
-                 args: List[String],
-                 imageFormat: JibImageFormat,
-                 environment: Map[String, String],
-                 labels: Map[String, String],
-                 additionalTags: List[String],
-                 user: Option[String],
-                 useCurrentTimestamp: Boolean,
-                 platforms: Set[Platform]
-               )(containerizer: Containerizer): Unit = {
+      targetDirectory: File,
+      configuration: SbtConfiguration,
+      jibBaseImageCredentialHelper: Option[String],
+      jvmFlags: List[String],
+      tcpPorts: List[Int],
+      udpPorts: List[Int],
+      args: List[String],
+      imageFormat: JibImageFormat,
+      environment: Map[String, String],
+      labels: Map[String, String],
+      additionalTags: List[String],
+      user: Option[String],
+      useCurrentTimestamp: Boolean,
+      platforms: Set[Platform]
+  )(containerizer: Containerizer): Unit = {
     val internalImageFormat = imageFormat match {
       case JibImageFormat.Docker => ImageFormat.Docker
-      case JibImageFormat.OCI => ImageFormat.OCI
+      case JibImageFormat.OCI    => ImageFormat.OCI
     }
     val baseImage = JibCommon.baseImageFactory(configuration.baseImageReference)(
       jibBaseImageCredentialHelper,
